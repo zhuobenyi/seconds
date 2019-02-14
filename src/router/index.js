@@ -1,14 +1,19 @@
+/* 路由配置 */
+
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+// webpack模板提供的.. @代表src 文件夹
+import login from '@/components/login.vue'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'index',
+      path: '/login',
+      name: 'login',
+      component: login
     }
+
   ]
 })
