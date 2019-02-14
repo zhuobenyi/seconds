@@ -5,8 +5,10 @@ import App from './App'
 import router from './router'
 
 import axios from 'axios'
+// @ 仅是webpack 模板提供的简便用法，表示src文件夹
+import '@/assets/css/base.css'
 
-// 视图层
+// UI层   element-ui适用于vue2版本且为PC端时
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // 统一设置接口基准地址
