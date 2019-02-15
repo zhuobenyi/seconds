@@ -21,7 +21,7 @@
                   unique-opened:boolean   是否只保持一个子菜单的展开-->
                 <!-- default-active 通过index 属性,将符合条件的作为默认显示 -->
             <el-menu
-            :router = 'true' 
+            :router = 'true'
             :unique-opened = 'true'
             default-active="2"
             class="el-menu-vertical-demo">
@@ -30,7 +30,8 @@
                     <i class="el-icon-location"></i>
                     <span>用户管理</span>
                     </template>
-                    <el-menu-item index="1-1">
+                    <!-- 这里的index 相当于router-link  index的值相当于路由的path -->
+                    <el-menu-item index="users">
                     <i class="el-icon-menu"></i>
                         用户列表</el-menu-item>
                 </el-submenu>
@@ -86,7 +87,10 @@
             </el-menu>
 
             </el-aside>
-            <el-main>Main</el-main>
+            <el-main>
+                <!-- 这里展示router-view 要渲染的组件 -->
+                <router-view></router-view>
+            </el-main>
         </el-container>
         </el-container>
     </div>
@@ -94,16 +98,14 @@
 
 <script>
 export default {
-  beforeMount()
-  {
+  beforeMount () {
     //   当判断没有携带token时,返回登录组件
-      if (!localStorage.getItem('token'))
-      {
-          this.$router.push({
-              name: 'login'
-          })
-          this.$message.warning('请先登录')
-      }
+    if (!localStorage.getItem('token')) {
+      this.$router.push({
+        name: 'login'
+      })
+      this.$message.warning('请先登录')
+    }
   },
   methods: {
     homeExit () {
