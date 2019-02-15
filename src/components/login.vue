@@ -9,7 +9,7 @@
       <el-form-item label="密码">
         <el-input v-model="fromData.password"></el-input>
       </el-form-item>
-      <el-button class="btn" type="primary">主要按钮</el-button>
+      <el-button @click.prevent='login()' class="btn" type="primary">登录</el-button>
     </el-form>
   </div>
 </template>
@@ -19,9 +19,45 @@ export default {
   data () {
     return {
       fromData: {
-
+        username: '',
+        password: ''
       }
     }
+  },
+  methods: {
+    // ES7的async 把异步代码改成同步  外层函数前加async 里层异步操作加 await
+    async login () {
+      const res = await this.$http.post('login', this.fromData)
+      console.log(res)
+      const {meta: {msg, status}} = res.data
+
+      try {
+        if (status === 200) {
+          const { data: {token} } = res.data
+          // 存储token值
+          localStorage.setItem('token', token)
+          this.$router.push({
+            name: 'home'
+          })
+        } else {
+          this.$message.error(msg)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    // login () {
+    //   this.$http.post('login', this.fromData)
+    //     .then((res) => {
+    //       this.$router.push({
+    //         name: 'home'
+    //       })
+    //     })
+    //     .catch((err) => {
+    //       console.log(err)
+    //     })
+    // }
   }
 
 }

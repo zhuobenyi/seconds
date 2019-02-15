@@ -13,7 +13,8 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // 统一设置接口基准地址
 axios.defaults.baseURL = 'http://localhost:8888/api/private/v1/'
-// Vue.protoType.$http = axios
+Vue.prototype.$http = axios
+
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false
