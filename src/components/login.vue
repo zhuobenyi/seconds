@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div id="main" >
     <div style="margin: 20px;"></div>
     <el-form class="login-from" label-position="top" label-width="80px" :model="fromData">
       <h2>用户登录</h2>
@@ -25,6 +25,29 @@ export default {
     }
   },
   methods: {
+    // async document.onkeydown = function (e)
+    // {
+
+    // },
+    //  loginEnter(e)
+    // {
+    //   if (e.keyCode === 13)
+    //   {
+    //     const re = await this.$http.post('login',this.fromdata)
+    //     const {meta: {msg,status}} = re.data
+    //     if (status === 200)
+    //     {
+    //       this.$router.push({
+    //         name: 'home'
+    //       })
+    //     }
+    //     else
+    //     {
+    //       this.$message.error(msg)
+    //     }
+    //   }
+    // },
+
     // ES7的async 把异步代码改成同步  外层函数前加async 里层异步操作加 await
     async login () {
       const res = await this.$http.post('login', this.fromData)
