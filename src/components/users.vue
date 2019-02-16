@@ -51,6 +51,18 @@
             </template>
         </el-table-column>
       </el-table>
+
+        <!-- 分页部分 -->
+        <el-pagination
+        class="paging"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="pagenum"
+      :page-sizes="[1, 2, 3, 4]"
+      :page-size="2"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total">
+    </el-pagination>
     </el-card>
   </div>
 </template>
@@ -64,10 +76,25 @@ export default {
       //   当前页码数
       pagenum: 1,
       //   每页显示数量
-      pagesize: 5,
+      pagesize: 2,
+      // 值为-1,为了区分和后台拿到的数据,后台数据最少为0
+      total: -1
     }
   },
   methods: {
+    // 点击下拉框中的每页条数时触发
+    handleSizeChange (val) {
+      console.log(`每页 ${val} 条`)
+      this.pagesize = val
+      this.pagenum = 1
+      this.renderList()
+    },
+    // 点击当前页码触发的事件
+    handleCurrentChange (val) {
+      console.log(`当前页: ${val}`)
+      this.pagenum = val
+      this.renderList()
+    },
     async renderList () {
       // 除登录请求外,其他请求都要取出token验证(请求头中)
       const AUTH_TOKEN = localStorage.getItem('token')
@@ -77,6 +104,7 @@ export default {
       // console.log(res)
       const {data, meta: {status}} = res.data
       if (status === 200) {
+        this.total = data.total
         this.tableData = data.users
       }
     }
@@ -84,12 +112,14 @@ export default {
   created () {
     this.renderList()
   }
-
 }
 </script>
 
 <style>
 .search {
   width: 350px;
+}
+.paging {
+  margin-top: 30px;
 }
 </style>

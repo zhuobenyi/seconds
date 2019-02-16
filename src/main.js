@@ -8,7 +8,7 @@ import axios from 'axios'
 // @ 仅是webpack 模板提供的简便用法，表示src文件夹
 import '@/assets/css/base.css'
 
-import moment from "moment"
+import moment from 'moment'
 // UI层   element-ui适用于vue2版本且为PC端时
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -18,8 +18,7 @@ Vue.prototype.$http = axios
 
 Vue.use(ElementUI)
 // 全局处理日期的过滤器
-Vue.filter('fmtDate',(v)=>
-{
+Vue.filter('fmtDate', (v) => {
   return moment(v).format('YYYY-MM-DD')
 })
 
