@@ -296,9 +296,6 @@ export default {
       this.renderList()
     },
     async renderList () {
-      // 除登录请求外,其他请求都要取出token验证(请求头中)
-      const AUTH_TOKEN = localStorage.getItem('token')
-      this.$http.defaults.headers.common['Authorization'] = AUTH_TOKEN
       // 接口文档要求的查询字符串中要携带的参数
       const res = await this.$http.get(
         `users?query=${this.query}&pagenum=${this.pagenum}&pagesize=${

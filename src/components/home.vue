@@ -105,7 +105,7 @@
 <script>
 export default {
   beforeMount () {
-    //   当判断没有携带token时,返回登录组件
+    //   当判断没有携带`token`时,返回登录组件
     if (!localStorage.getItem('token')) {
       this.$router.push({
         name: 'login'
