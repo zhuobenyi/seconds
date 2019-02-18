@@ -6,6 +6,8 @@ import Router from 'vue-router'
 import login from '@/components/login.vue'
 import home from '@/components/home.vue'
 import users from '@/components/users.vue'
+// 用户权限组件
+import rights from '@/components/rights.vue'
 
 Vue.use(Router)
 
@@ -25,6 +27,10 @@ export default new Router({
         path: '/users',
         name: 'users',
         component: users
+      },
+      {
+        path: 'rights',
+        component: rights
       }]
     }
   ]
