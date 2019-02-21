@@ -51,7 +51,7 @@ export default {
     // ES7的async 把异步代码改成同步  外层函数前加async 里层异步操作加 await
     async login () {
       const res = await this.$http.post('login', this.fromData)
-      console.log(res)
+      // console.log(res)
       const {meta: {msg, status}} = res.data
 
       try {

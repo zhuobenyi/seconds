@@ -10,9 +10,9 @@ export default MyPlugin.install = function (Vue, options) {
 
   // 添加请求拦截器
   axios.interceptors.request.use(function (config) {
-    console.log(config)
+    // console.log(config)
     // url是在baseurl的基础上拼接的
-    if (!config.url === 'login') {
+    if (config.url !== 'login') {
       // 除登录请求外,其他请求都要取出token验证(请求头中)
       const AUTH_TOKEN = localStorage.getItem('token')
       config.headers.common['Authorization'] = AUTH_TOKEN

@@ -25,24 +25,26 @@
           default-active="2"
           class="el-menu-vertical-demo"
         >
-          <el-submenu index="1">
+        <!-- 外层导航 -->
+          <el-submenu :index="v1.order + ''" v-for='(v1) in menus' :key="v1.id">
             <template slot="title">
               <i class="el-icon-location"></i>
-              <span>用户管理</span>
+              <span>{{ v1.authName }}</span>
             </template>
+        <!-- 里层导航 -->
             <!-- 这里的index 相当于router-link  index的值相当于路由的path -->
-            <el-menu-item index="users">
+            <el-menu-item :index="v2.path + ''" v-for="(v2) in v1.children" :key='v2.id'>
               <i class="el-icon-menu"></i>
-              用户列表
+              {{ v2.authName }}
             </el-menu-item>
           </el-submenu>
 
-          <el-submenu index="2">
+          <!-- <el-submenu index="2">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>权限管理</span>
             </template>
-            <el-menu-item index="1-2">
+            <el-menu-item index="roles">
               <i class="el-icon-menu"></i>
               角色列表
             </el-menu-item>
@@ -57,7 +59,7 @@
               <i class="el-icon-location"></i>
               <span>商品管理</span>
             </template>
-            <el-menu-item index="1-2">
+            <el-menu-item index="goods">
               <i class="el-icon-menu"></i>
               商品列表
             </el-menu-item>
@@ -91,7 +93,7 @@
               <i class="el-icon-menu"></i>
               数据报表
             </el-menu-item>
-          </el-submenu>
+          </el-submenu> -->
         </el-menu>
       </el-aside>
       <el-main>
@@ -104,16 +106,32 @@
 
 <script>
 export default {
-  beforeMount () {
-    //   当判断没有携带`token`时,返回登录组件
-    if (!localStorage.getItem('token')) {
-      this.$router.push({
-        name: 'login'
-      })
-      this.$message.warning('请先登录')
+  data () {
+    return {
+      menus: []
     }
   },
+  // beforeMount () {
+  //   //   当判断没有携带`token`时,返回登录组件
+  //   if (!localStorage.getItem('token')) {
+  //     this.$router.push({
+  //       name: 'login'
+  //     })
+  //     this.$message.warning('请先登录')
+  //   }
+  // },
+  created () {
+    this.renderList()
+  },
   methods: {
+    async renderList () {
+      const res = await this.$http.get('menus')
+      // console.log(res)
+      const {meta: {status}, data} = res.data
+      if (status === 200) {
+        this.menus = data
+      }
+    },
     homeExit () {
       if (confirm('确定退出吗?')) {
         localStorage.clear()

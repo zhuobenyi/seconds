@@ -205,7 +205,7 @@ export default {
 
       // 再发请求,通过Rid展示 :label 的默认值
       const res2 = await this.$http.get(`users/${users.id}`)
-      console.log(res2)
+      // console.log(res2)
       // 给下拉框v-model绑定的selectVal赋值
       this.selectRid = res2.data.data.rid
     },
@@ -218,18 +218,24 @@ export default {
       this.dialogFormVisibleEdit = false
       // 修改信息是在展示信息的基础上
       const res = await this.$http.put(`users/${this.form.id}`, this.form)
-      const {
-        meta: { status }
-      } = res
+      const {meta: {status}} = res.data
       if (status === 200) {
         this.renderList()
       }
     },
     // 点击展示修改用户信息
-    showEditUsers (users) {
-      console.log(users)
+    async showEditUsers (users) {
+      // console.log(users)
       this.dialogFormVisibleEdit = true
-      this.form = users
+      const res = await this.$http.get(`users/${users.id}`)
+
+      // const res = await this.$http.get(`users/${users.id}`)
+      this.form = res.data.data
+
+      // const {data} = res.data
+      // this.form = data
+      // 不能写成 this.form = users,因为users 和form 都是复杂数据类型,v-model绑定的form会同时修改users的数据,
+      // 造成修改用户的信息后,点击取消,同样会修改用户的数据(假修改)
     },
     // 点击删除用户
     async delUsers (users) {
@@ -267,7 +273,7 @@ export default {
     // 添加用户
     async addUsers () {
       const res = await this.$http.post(`users`, this.form)
-      console.log(res)
+      // console.log(res)
       const {
         meta: { status }
       } = res.data
@@ -284,14 +290,14 @@ export default {
     },
     // 点击下拉框中的每页条数时触发
     handleSizeChange (val) {
-      console.log(`每页 ${val} 条`)
+      // console.log(`每页 ${val} 条`)
       this.pagesize = val
       this.pagenum = 1
       this.renderList()
     },
     // 点击当前页码触发的事件
     handleCurrentChange (val) {
-      console.log(`当前页: ${val}`)
+      // console.log(`当前页: ${val}`)
       this.pagenum = val
       this.renderList()
     },

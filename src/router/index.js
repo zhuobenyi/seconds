@@ -8,10 +8,19 @@ import home from '@/components/home.vue'
 import users from '@/components/users.vue'
 // 用户权限组件
 import rights from '@/components/rights.vue'
+// 角色列表组件
+import roles from '@/components/role.vue'
+import goods from '@/components/goods.vue'
+import goodsadd from '@/components/goodsAdd.vue'
+
+// 从element-ui 单独导入 message 对象
+import {
+  Message
+} from 'element-ui'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/login',
@@ -29,9 +38,44 @@ export default new Router({
         component: users
       },
       {
-        path: 'rights',
+        name: 'rights',
+        path: '/rights',
         component: rights
+      },
+      {
+        name: 'roles',
+        path: '/roles',
+        component: roles
+      },
+      {
+        path: '/goods',
+        name: 'goods',
+        component: goods
+      },
+      {
+        name: 'goodsadd',
+        path: '/goodsadd',
+        component: goodsadd
       }]
     }
   ]
 })
+
+// 全局守卫
+router.beforeEach((to, from, next) => {
+  if (to.name === 'login') {
+    next()
+  } else {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      router.push({
+        name: 'login'
+      })
+      Message.warning('请先登录')
+    } else {
+      next()
+    }
+  }
+})
+
+export default router

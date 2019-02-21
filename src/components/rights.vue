@@ -13,7 +13,13 @@
       <el-table-column type="index" width="80"></el-table-column>
       <el-table-column property="authName" label="权限名称" width="140"></el-table-column>
       <el-table-column property="path" label="路径" width="140"></el-table-column>
-      <el-table-column property="level" label="最级"></el-table-column>
+      <el-table-column property="level" label="层级">
+        <template slot-scope="scope">
+            <span v-if="scope.row.level==='0'">一级</span>
+            <span v-if="scope.row.level==='1'">二级</span>
+            <span v-if="scope.row.level==='2'">三级</span>
+        </template>
+      </el-table-column>
     </el-table>
   </el-card>
 </template>
@@ -29,7 +35,7 @@ export default {
   methods: {
     async getRightsList () {
       const res = await this.$http.get('rights/list')
-      console.log(res)
+      // console.log(res)
       const {meta: {status}, data} = res.data
       if (status === 200) {
         this.tableData = data
