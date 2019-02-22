@@ -12,6 +12,8 @@ import rights from '@/components/rights.vue'
 import roles from '@/components/role.vue'
 import goods from '@/components/goods.vue'
 import goodsadd from '@/components/goodsAdd.vue'
+import cateParams from '@/components/cateParams.vue'
+import goodscate from '@/components/goodscate.vue'
 
 // 从element-ui 单独导入 message 对象
 import {
@@ -56,6 +58,16 @@ const router = new Router({
         name: 'goodsadd',
         path: '/goodsadd',
         component: goodsadd
+      },
+      {
+        name: 'cateParams',
+        path: '/params',
+        component: cateParams
+      },
+      {
+        name: 'goodscate',
+        path: '/categories',
+        component: goodscate
       }]
     }
   ]

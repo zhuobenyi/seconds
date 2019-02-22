@@ -64,6 +64,7 @@
         <el-tab-pane name="4" label="商品图片">
             <el-form-item>
               <!-- 非登录请求需要验证token,需要在请求头中携带token数据 -->
+                  <!--action需要完整路径   baseURL拼接上路径 -->
                  <el-upload
                   class="upload-demo"
                   action="http://localhost:8888/api/private/v1/upload"
